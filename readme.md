@@ -1,0 +1,1 @@
+这是我在学校学习并制作的一个Django博客，前端模板来自https://www.yangqq.com/ 希望可以帮助到正在学习Django的初学者们学会一些东西

@@ -1,0 +1,112 @@
+<!doctype html>
+{%load static %}
+<html>
+<head>
+<meta charset="utf-8">
+<title>{{ post.title }}---橙猫个人博客</title>
+<meta name="keywords" content="blog" />
+<meta name="description" content="blog" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="{% static 'css/base.css' %}" rel="stylesheet">
+<link href="{% static 'css/m.css' %}" rel="stylesheet">
+<link rel="icon" href="{% static 'images/icon.png' %}">
+<script src="{% static 'js/jquery-1.8.3.min.js' %}" ></script>
+<script src="{% static 'js/comm.js' %}"></script>
+<!--[if lt IE 9]>
+<script src="{% static 'js/modernizr.js' %}"></script>
+<![endif]-->
+</head>
+<body>
+<!--top begin-->
+<header id="header">
+  <div class="navbox">
+    <h2 id="mnavh"><span class="navicon"></span></h2>
+    <div class="logo"><a href="{% url 'index' %}">橙猫个人博客</a></div>
+    <nav>
+      <ul id="starlist">
+        <li><a href="{% url 'index' %}">首页</a></li>
+        <li><a href="{% url 'list' %}">个人博客日记</a></li>
+        <li><a href="{% url 'about' %}">关于我</a></li>
+      </ul>
+    </nav>
+    <div class="searchico"></div>
+  </div>
+</header>
+<div class="searchbox">
+  <div class="search">
+    <form action="{% url 'search' %}" method="post" name="searchform" id="searchform">{% csrf_token %}
+      <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onFocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onBlur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+      <input name="show" value="title" type="hidden">
+      <input name="tempid" value="1" type="hidden">
+      <input name="tbname" value="news" type="hidden">
+      <input name="Submit" class="input_submit" value="搜索" type="submit">
+    </form>
+  </div>
+  <div class="searchclose"></div>
+</div>
+<article>
+  <!--lbox begin-->
+  <div class="lbox">
+    <div class="content_box whitebg">
+      <h1 class="con_tilte">{{ post.title }}</h1>
+      <p class="bloginfo"><i class="avatar"><img src="{% static 'images/avatar.jpg' %}"></i><span>橙猫</span><span>{{ post.created_time }}</span><span>【<a href="{% url 'taglist' pk=post.tags_id_id %}">{{ post.tags_id }}</a>】</span></p>
+      <p class="con_info"><b>简介</b>个人博客，我把它当做一个我吐槽心情的地方，写上一些关于自己生活工作中的小情小事，也会放上一些音乐,动漫。给所有喜欢程序,动漫,音乐的分享各种好玩的事情</p>
+      <div class="con_text">
+        {{ post.content }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!--lbox end-->
+  <div class="rbox">
+    <div class="whitebg paihang">
+      <h2 class="htitle">点击排行</h2>
+      <section class="topnews imgscale"><a href="https://www.runoob.com"><img src="{% static 'images/h1.jpg' %}"><span>学编程就来菜鸟教程</span></a></section>
+      <ul>
+        {% for rank in ranks %}
+              <li><i></i><a href="{% url 'info' pk=rank.article_id %}">{{ rank.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="whitebg cloud">
+      <h2 class="htitle">标签云</h2>
+      <ul>
+          {% for tag in tags %}
+              <a href="{% url 'taglist' pk=tag.id %}" target="_blank">{{ tag.name }}</a>
+          {% endfor %}
+      </ul>
+    </div>
+
+    <div class="whitebg tongji">
+      <h2 class="htitle">站点信息</h2>
+      <ul>
+        <li><b>建站时间</b>：2020-09-09</li>
+        <li><b>网站程序</b>：基于django</li>
+        <li><b>文章统计</b>：{{ allposts.count }}</li>
+        <li><b>微信公众号</b>：扫描二维码，关注我们</li>
+        <img src="{%static 'images/wxgzh.jpg' %}" class="tongji_gzh">
+      </ul>
+    </div>
+  </div>
+</article>
+<footer>
+  <div class="box">
+    <div class="wxbox">
+      <ul>
+        <li><img src="{% static 'images/wxgzh.jpg' %}"><span>微信公众号</span></li>
+        <li><img src="{% static 'images/qq.png' %}"><span>我的QQ</span></li>
+      </ul>
+    </div>
+    <div class="endnav">
+      <p><b>站点声明：</b></p>
+      <p>1、本站仅为橙猫个人博客</p>
+      <p>2、本站所有文章及资源均为个人用途，禁止用于商业</p>
+    </div>
+  </div>
+  <a href="#">
+  <div class="top"></div>
+  </a> </footer>
+</body>
+</html>
